@@ -95,6 +95,18 @@ function debye_length(density::NumberDensity, thermal_energy::Unitful.Energy)
     upreferred(sqrt(free_space_permittivity * thermal_energy / density / elementry_charge^2))
 end
 
+function electron_thermal_velocity(temp::Unitful.Temperature)
+    upreferred(sqrt(boltzmann_constant * temp / electron_mass))
+end
+
+function ion_thermal_velocity(temp::Unitful.Temperature, ion_mass::Unitful.Mass)
+    upreferred(sqrt(boltzmann_constant * temp / ion_mass))
+end
+
+# TODO: ion_sound_velocity
+
+# TODO: ion_sound_velocity
+
 # TODO: plasma_parameter(temperature, density)
 
 end
