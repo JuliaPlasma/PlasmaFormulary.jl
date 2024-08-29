@@ -3,8 +3,14 @@ uuid = "d26ff896-aba2-4e70-a0a6-448627456efe"
 authors = ["Luke Adams <luke@lukeclydeadams.com> and contributors"]
 version = "1.0.0-DEV"
 
+[deps]
+Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+
 [compat]
 julia = "1.10"
+Test = "1.10"
+Unitful = "1.0"
+Aqua = "0.8"
 
 [extras]
 Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
