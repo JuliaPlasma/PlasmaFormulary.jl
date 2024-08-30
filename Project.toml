@@ -11,6 +11,7 @@ UnitfulEquivalences = "da9c4bc3-91c8-4f02-8a40-6b990d2a7e0c"
 Aqua = "0.8"
 Test = "1.10"
 Unitful = "1.0"
+UnitfulEquivalences = "0.2"
 julia = "1.10"
 
 [extras]
