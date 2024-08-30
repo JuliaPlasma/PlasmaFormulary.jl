@@ -1,8 +1,13 @@
 module PlasmaFormulary
 
 using Unitful
+using UnitfulEquivalences
 
 @derived_dimension NumberDensity Unitful.𝐋^-3
+
+const EnergyOrTemp = Union{Unitful.Temperature, Unitful.Energy}
+energy(eot) = uconvert(u"J", eot, Thermal())
+temperature(eot) = uconvert(u"K", eot, Thermal())
 
 # Physical Constants (SI)
 boltzmann_constant = 1.38065e-23 * u"J / K"
@@ -65,12 +70,12 @@ end
 
 #electron and ion collision rates excluded
 
-function electron_debroglie_length(temp::Unitful.Temperature)
-    upreferred(sqrt(2 * pi * reduced_planck_constant^2 / electron_mass / boltzmann_constant / temp))
+function electron_debroglie_length(eot::EnergyOrTemp)
+    upreferred(sqrt(2 * pi * reduced_planck_constant^2 / electron_mass / energy(eot)))
 end
 
-function classical_minimum_approach_distance(temp::Unitful.Temperature)
-    upreferred(elementry_charge^2 / boltzmann_constant / temp / (4 * pi * free_space_permittivity))
+function classical_minimum_approach_distance(eot::EnergyOrTemp)
+    upreferred(elementry_charge^2 / energy(eot) / (4 * pi * free_space_permittivity))
 end
 
 # TODO: electron_gyryradius
@@ -85,22 +90,16 @@ function ion_inertial_length(density::NumberDensity, charge_state::Integer, ion_
     upreferred(light_speed / ion_plasma_frequency(density, charge_state, ion_mass))
 end
 
-function debye_length(density::NumberDensity, temp::Unitful.Temperature)
-    upreferred(sqrt(free_space_permittivity * boltzmann_constant * temp / density / elementry_charge^2))
+function debye_length(density::NumberDensity, eot::EnergyOrTemp)
+    upreferred(sqrt(free_space_permittivity * energy(eot) / density / elementry_charge^2))
 end
 
-# TODO: does making energy and temperature interchangable make sense? Should I
-# do this for everything?
-function debye_length(density::NumberDensity, thermal_energy::Unitful.Energy)
-    upreferred(sqrt(free_space_permittivity * thermal_energy / density / elementry_charge^2))
+function electron_thermal_velocity(eot::EnergyOrTemp)
+    upreferred(sqrt(boltzmann_constant * temperature(eot) / electron_mass))
 end
 
-function electron_thermal_velocity(temp::Unitful.Temperature)
-    upreferred(sqrt(boltzmann_constant * temp / electron_mass))
-end
-
-function ion_thermal_velocity(temp::Unitful.Temperature, ion_mass::Unitful.Mass)
-    upreferred(sqrt(boltzmann_constant * temp / ion_mass))
+function ion_thermal_velocity(eot::EnergyOrTemp, ion_mass::Unitful.Mass)
+    upreferred(sqrt(boltzmann_constant * temperature(eot) / ion_mass))
 end
 
 # TODO: ion_sound_velocity
