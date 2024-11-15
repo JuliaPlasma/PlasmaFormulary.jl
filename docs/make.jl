@@ -1,23 +1,17 @@
 using PlasmaFormulary
 using Documenter
 
-DocMeta.setdocmeta!(PlasmaFormulary, :DocTestSetup, :(using PlasmaFormulary); recursive=true)
+DocMeta.setdocmeta!(
+    PlasmaFormulary,
+    :DocTestSetup,
+    :(using PlasmaFormulary; using Unitful);
+    recursive = true,
+)
 
 makedocs(;
-    modules=[PlasmaFormulary],
-    authors="Luke Adams <luke@lukeclydeadams.com> and contributors",
-    sitename="PlasmaFormulary.jl",
-    format=Documenter.HTML(;
-        canonical="https://adamslc.github.io/PlasmaFormulary.jl",
-        edit_link="main",
-        assets=String[],
-    ),
-    pages=[
-        "Home" => "index.md",
-    ],
+    modules = [PlasmaFormulary],
+    sitename = "PlasmaFormulary.jl",
+    pages = ["Home" => "index.md", "API Reference" => "api.md"],
 )
 
-deploydocs(;
-    repo="github.com/adamslc/PlasmaFormulary.jl",
-    devbranch="main",
-)
+deploydocs(; repo = "github.com/adamslc/PlasmaFormulary.jl", devbranch = "main")
