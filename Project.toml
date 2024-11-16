@@ -1,21 +1,29 @@
 name = "PlasmaFormulary"
 uuid = "d26ff896-aba2-4e70-a0a6-448627456efe"
-authors = ["Luke Adams <luke@lukeclydeadams.com> and contributors"]
-version = "1.0.0-DEV"
+authors = ["Zijin Zhang", "Luke Adams <luke@lukeclydeadams.com>"]
+version = "0.1.0"
 
 [deps]
+ChargedParticles = "e91dad46-2c06-47f2-8668-7ffa57fde2d9"
+Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 UnitfulEquivalences = "da9c4bc3-91c8-4f02-8a40-6b990d2a7e0c"
 
 [compat]
 Aqua = "0.8"
+ChargedParticles = "0.1.0"
+Combinatorics = "1.0.2"
+LinearAlgebra = "1"
 Test = "1.10"
 Unitful = "1.0"
 UnitfulEquivalences = "0.2"
 julia = "1.10"
+BenchmarkTools = "1"
 
 [extras]
 Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
+BenchmarkTools = "6e4b80f9-dd63-53aa-95a3-0cdb28fa8baf"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [targets]
