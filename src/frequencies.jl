@@ -1,4 +1,4 @@
-function gyrofrequency(B::BField, mass, q)
+function gyrofrequency(B::BField, mass::Mass, q::Charge)
     upreferred(q * B / mass)
 end
 
@@ -6,7 +6,7 @@ function electron_gyrofrequency(B::BField)
     gyrofrequency(B, me, Unitful.q)
 end
 
-function ion_gyrofrequency(B::BField, Z, mass)
+function ion_gyrofrequency(B::BField, Z, mass::Mass)
     gyrofrequency(B, mass, Z * Unitful.q)
 end
 
@@ -29,8 +29,9 @@ plasma_frequency(n::NumberDensity) = plasma_frequency(n, Unitful.q, me)
 
 Ion plasma frequency.
 """
-plasma_frequency(n::NumberDensity, Z::Integer, mass_numb) =
-    plasma_frequency(n, Z * Unitful.q, mass_numb * Unitful.u)
+plasma_frequency(n::NumberDensity, Z::Integer, mass_number) =
+    plasma_frequency(n, Z * Unitful.q, mass_number * Unitful.u)
 
+# TODO: Do we need these?
 const electron_plasma_frequency = plasma_frequency
 const ion_plasma_frequency = plasma_frequency
