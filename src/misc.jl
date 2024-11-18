@@ -11,8 +11,6 @@ function thermal_pressure(T::EnergyOrTemp, n::NumberDensity)
     return n * k * temperature(T) |> upreferred
 end
 
-const p_th = thermal_pressure
-
 """
     magnetic_pressure(B)
 

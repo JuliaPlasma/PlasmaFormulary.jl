@@ -6,7 +6,6 @@ using Unitful: μ0, ε0, c, q
 using Unitful: k, ħ
 using Unitful: me, mp, u
 using Unitful: Velocity, Mass, BField, Density, Charge
-using LinearAlgebra
 
 @derived_dimension NumberDensity Unitful.𝐋^-3
 
@@ -37,24 +36,20 @@ atmospheric_pressure = 1.01325e5 * u"Pa"
 standard_molar_volume = 2.24140e-2 * u"m^3 / mol"
 molar_weight_of_air = 2.89647e-2 * u"kg / mol"
 
-# Fundamental plasma parameters
-# These formulas have been converted to use SI units from the original Gaussian cgs units
-# that are used in the 2023 edition of the formulary.
-
 include("dimensionless.jl")
-include("lengths.jl")
-include("speeds.jl")
-include("frequencies.jl")
-include("misc.jl")
-
 export plasma_beta
-export gyroradius, debye_length, inertial_length
-export Alfven_velocity, Alfven_speed
-export gyrofrequency, plasma_frequency
 
-# aliases
-const rc_ = gyroradius
-const di_ = ion_inertial_length
-export rc_, di_
+include("lengths.jl")
+export gyroradius, electron_gyroradius, electron_debroglie_length, classical_minimum_approach_distance, inertial_length, electron_inertial_length, debye_length
+
+include("speeds.jl")
+export alfven_velocity, thermal_speed, thermal_temperature, electron_thermal_velocity, ion_thermal_velocity
+
+include("frequencies.jl")
+export gyrofrequency, electron_gyrofrequency, ion_gyrofrequency, plasma_frequency
+
+include("misc.jl")
+export thermal_pressure, magnetic_pressure
+
 
 end

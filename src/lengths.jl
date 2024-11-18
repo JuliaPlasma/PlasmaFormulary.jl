@@ -9,27 +9,17 @@ julia> gyroradius(0.2u"T", 1e6u"K")
 0.006682528174870854 m
 ```
 """
-function gyroradius(B, mass, q, Vperp::Velocity)
+function gyroradius(B::BField, mass::Mass, q::Charge, Vperp::Velocity)
     return upreferred(mass * Vperp / (q * B))
 end
 
-function gyroradius(B, Vperp::Velocity; mass_numb = 1, Z = 1)
-    return gyroradius(B, mass_numb * Unitful.u, Z * Unitful.q, Vperp)
+function gyroradius(B::BField, mass::Mass, q::Charge, T::EnergyOrTemp)
+    Vperp = thermal_speed(T, mass)
+    return gyroradius(B, mass, q, Vperp)
 end
 
-function gyroradius(B, T::EnergyOrTemp; mass_numb = 1, Z = 1)
-    Vperp = thermal_speed(T, mass_numb)
-    return gyroradius(B, Vperp; mass_numb, Z)
-end
-
-gyroradius(val::Union{Velocity,EnergyOrTemp}, B::BField; kw...) = gyroradius(B, val; kw...)
-
-electron_gyroradius(B, Vperp::Velocity) = gyroradius(B, me, Unitful.q, Vperp)
-electron_gyroradius(B, T::EnergyOrTemp) = electron_gyroradius(B, thermal_speed(T, me))
-
-# electron and ion trapping rates excluded
-
-#electron and ion collision rates excluded
+electron_gyroradius(B::BField, Vperp::Velocity) = gyroradius(B, me, Unitful.q, Vperp)
+electron_gyroradius(B::BField, T::EnergyOrTemp) = electron_gyroradius(B, thermal_speed(T, me))
 
 function electron_debroglie_length(eot::EnergyOrTemp)
     upreferred(sqrt(2 * pi * ħ^2 / me / energy(eot)))
@@ -44,7 +34,7 @@ The inertial length is the characteristic length scale for a particle to be acce
 
 References: [PlasmaPy API Documentation](https://docs.plasmapy.org/en/latest/api/plasmapy.formulary.lengths.inertial_length.html)
 """
-function inertial_length(n::NumberDensity, q, mass::Mass)
+function inertial_length(n::NumberDensity, q::Charge, mass::Mass)
     upreferred(c / plasma_frequency(n, q, mass))
 end
 
@@ -53,8 +43,6 @@ electron_inertial_length(n::NumberDensity) = upreferred(c / plasma_frequency(n))
 function ion_inertial_length(n::NumberDensity, Z, mass::Mass)
     inertial_length(n, Z * Unitful.q, mass)
 end
-
-ion_inertial_length(n::NumberDensity; Z = 1, mass = mp) = ion_inertial_length(n, Z, mass)
 
 function debye_length(density::NumberDensity, eot::EnergyOrTemp)
     upreferred(sqrt(ε0 * energy(eot) / density / q^2))
