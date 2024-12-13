@@ -43,7 +43,7 @@ include("lengths.jl")
 export gyroradius, electron_gyroradius, electron_debroglie_length, classical_minimum_approach_distance, inertial_length, electron_inertial_length, debye_length
 
 include("speeds.jl")
-export alfven_velocity, thermal_speed, thermal_temperature, electron_thermal_velocity, ion_thermal_velocity
+export alfven_velocity, thermal_velocity, thermal_temperature, electron_thermal_velocity
 
 include("frequencies.jl")
 export gyrofrequency, electron_gyrofrequency, ion_gyrofrequency, plasma_frequency

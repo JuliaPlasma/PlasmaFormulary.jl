@@ -15,59 +15,54 @@ function alfven_velocity(B::BField, n::NumberDensity, mass_number)
 end
 
 # TODO: Add docstrings
-abstract type ThermalSpeedMethod end
-struct MostProbable <: ThermalSpeedMethod end
-struct RMS <: ThermalSpeedMethod end
-struct MeanMagnitude <: ThermalSpeedMethod end
-struct NRL <: ThermalSpeedMethod end
+abstract type ThermalVelocityMethod end
+struct MostProbable <: ThermalVelocityMethod end
+struct RMS <: ThermalVelocityMethod end
+struct MeanMagnitude <: ThermalVelocityMethod end
+struct NRL <: ThermalVelocityMethod end
 
 """
-    thermal_speed_coefficients(method::ThermalSpeedMethod, ndim::Int)
+    thermal_velocity_coefficients(method::ThermalVelocityMethod, ndim::Int)
 
 Get the thermal speed coefficient corresponding to the desired thermal speed definition.
 
 # Arguments
-- `method::ThermalSpeedMethod`: Method to be used for calculating the thermal speed. Valid values are `MostProbable()`, `RMS()`, `MeanMagnitude()`, and `NRL()`.
+- `method::ThermalVelocityMethod`: Method to be used for calculating the thermal speed. Valid values are `MostProbable()`, `RMS()`, `MeanMagnitude()`, and `NRL()`.
 - `ndim::Val{Int}`: Dimensionality (1D, 2D, 3D) of space in which to calculate thermal speed. Valid values are `Val(1)`, `Val(2)`, or `Val{3}`.
 """
-thermal_speed_coefficients(::MostProbable, ::Val{1}) = 0.0
-thermal_speed_coefficients(::MostProbable, ::Val{2}) = 1.0
-thermal_speed_coefficients(::MostProbable, ::Val{3}) = sqrt(2)
-thermal_speed_coefficients(::RMS, ::Val{1}) = 1.0
-thermal_speed_coefficients(::RMS, ::Val{2}) = sqrt(2)
-thermal_speed_coefficients(::RMS, ::Val{3}) = sqrt(3)
-thermal_speed_coefficients(::MeanMagnitude, ::Val{1}) = sqrt(2 / π)
-thermal_speed_coefficients(::MeanMagnitude, ::Val{2}) = sqrt(π / 2)
-thermal_speed_coefficients(::MeanMagnitude, ::Val{3}) = sqrt(8 / π)
-thermal_speed_coefficients(::NRL, ::Val{1}) = 1.0
-thermal_speed_coefficients(::NRL, ::Val{2}) = 1.0
-thermal_speed_coefficients(::NRL, ::Val{3}) = 1.0
+thermal_velocity_coefficients(::MostProbable, ::Val{1}) = 0.0
+thermal_velocity_coefficients(::MostProbable, ::Val{2}) = 1.0
+thermal_velocity_coefficients(::MostProbable, ::Val{3}) = sqrt(2)
+thermal_velocity_coefficients(::RMS, ::Val{1}) = 1.0
+thermal_velocity_coefficients(::RMS, ::Val{2}) = sqrt(2)
+thermal_velocity_coefficients(::RMS, ::Val{3}) = sqrt(3)
+thermal_velocity_coefficients(::MeanMagnitude, ::Val{1}) = sqrt(2 / π)
+thermal_velocity_coefficients(::MeanMagnitude, ::Val{2}) = sqrt(π / 2)
+thermal_velocity_coefficients(::MeanMagnitude, ::Val{3}) = sqrt(8 / π)
+thermal_velocity_coefficients(::NRL, ::Val{1}) = 1.0
+thermal_velocity_coefficients(::NRL, ::Val{2}) = 1.0
+thermal_velocity_coefficients(::NRL, ::Val{3}) = 1.0
 
-function thermal_speed(
+function thermal_velocity(
     T::EnergyOrTemp,
     mass::Unitful.Mass,
-    method::ThermalSpeedMethod = MostProbable(),
+    method::ThermalVelocityMethod = MostProbable(),
     ndim = 3,
 )
-    coeff = thermal_speed_coefficients(method, Val(ndim))
+    coeff = thermal_velocity_coefficients(method, Val(ndim))
     return coeff * sqrt(k * temperature(T) / mass)
 end
 
 function thermal_temperature(
     V::Unitful.Velocity,
     mass::Unitful.Mass,
-    method::ThermalSpeedMethod = MostProbable(),
+    method::ThermalVelocityMethod = MostProbable(),
     ndim = 3,
 )
-    coeff = thermal_speed_coefficients(method, Val(ndim))
+    coeff = thermal_velocity_coefficients(method, Val(ndim))
     return mass * V^2 / (k * coeff^2) |> upreferred
 end
 
 function electron_thermal_velocity(eot::EnergyOrTemp)
-    thermal_speed(eot, me, NRL())
-end
-
-# TODO: Do we need this, or is the thermal_speed function sufficient?
-function ion_thermal_velocity(eot::EnergyOrTemp, ion_mass::Unitful.Mass)
-    thermal_speed(eot, ion_mass, NRL())
+    thermal_velocity(eot, me, NRL())
 end
