@@ -67,5 +67,5 @@ jobs:
         run: |
           using Documenter: DocMeta, doctest
           using PlasmaFormulary
-          DocMeta.setdocmeta!(PlasmaFormulary, :DocTestSetup, :(using PlasmaFormulary); recursive=true)
+          DocMeta.setdocmeta!(PlasmaFormulary, :DocTestSetup, :(using PlasmaFormulary, Unitful); recursive=true)
           doctest(PlasmaFormulary)
