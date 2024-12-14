@@ -40,7 +40,7 @@ include("dimensionless.jl")
 export plasma_beta
 
 include("lengths.jl")
-export gyroradius, electron_gyroradius, electron_debroglie_length, classical_minimum_approach_distance, inertial_length, electron_inertial_length, debye_length
+export gyroradius, electron_gyroradius, electron_debroglie_length, classical_minimum_approach_distance, inertial_length, electron_inertial_length, ion_inertial_length, debye_length
 
 include("speeds.jl")
 export alfven_velocity, thermal_velocity, thermal_temperature, electron_thermal_velocity
