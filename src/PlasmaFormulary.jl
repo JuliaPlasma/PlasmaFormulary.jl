@@ -9,10 +9,22 @@ using Unitful: Velocity, Mass, BField, Density, Charge
 
 @derived_dimension NumberDensity Unitful.𝐋^-3
 
-const EnergyOrTemp = Union{Unitful.Temperature,Unitful.Energy}
-energy(eot) = uconvert(u"J", eot, Thermal())
-temperature(eot) = uconvert(u"K", eot, Thermal())
-temperature(T::Unitful.Temperature) = uconvert(u"K", T)
+const EnergyOrTemp = Union{Unitful.Temperature, Unitful.Energy}
+
+# Workaround for UnitfulEquivalences.uconvert not supporting conversions of
+# quantites with the same dimensions. See
+# https://github.com/sostock/UnitfulEquivalences.jl/issues/19
+function custom_uconvert(dest_unit, x, equivalence)
+    if dimension(x) == dimension(dest_unit)
+        # plain Unitful ustrip
+        Unitful.uconvert(dest_unit, x)
+    else
+        UnitfulEquivalences.uconvert(dest_unit, x, equivalence)
+    end
+end
+
+energy(eot) = custom_uconvert(u"J", eot, Thermal())
+temperature(eot) = custom_uconvert(u"K", eot, Thermal())
 
 # Physical Constants (SI)
 rydberg_constant = 1.09737e7 * u"m^-1"
