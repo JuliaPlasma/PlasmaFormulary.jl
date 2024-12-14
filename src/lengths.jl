@@ -5,8 +5,8 @@ References: [PlasmaPy API Documentation](https://docs.plasmapy.org/en/latest/api
 
 # Examples
 ```jldoctest
-julia> gyroradius(0.2u"T", 1e6u"K")
-0.006682528174870854 m
+julia> gyroradius(0.2u"T", Unitful.me, Unitful.q, 1e6u"K")
+0.00015651672339994665 m
 ```
 """
 function gyroradius(B::BField, mass::Mass, q::Charge, Vperp::Velocity)

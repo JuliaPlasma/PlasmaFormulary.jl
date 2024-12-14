@@ -4,7 +4,7 @@ using Documenter
 DocMeta.setdocmeta!(
     PlasmaFormulary,
     :DocTestSetup,
-    :(using PlasmaFormulary; using Unitful);
+    :(using PlasmaFormulary, Unitful);
     recursive = true,
 )
 
