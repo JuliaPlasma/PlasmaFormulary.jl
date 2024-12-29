@@ -3,6 +3,10 @@ using Test
 using Aqua
 using Unitful
 using LinearAlgebra
+using PythonCall
+
+units = pyimport("astropy.units")
+formulary = pyimport("plasmapy.formulary")
 
 @testset "PlasmaFormulary.jl" begin
     @testset "Code quality (Aqua.jl)" begin
@@ -35,7 +39,6 @@ using LinearAlgebra
         B = 0.1u"T"
         @test plasma_beta(T, n, B) == plasma_beta(n, B, PlasmaFormulary.temperature(T)) == plasma_beta(n, T, B)
 
-        units = pyimport("astropy.units")
-        formulary = pyimport("plasmapy.formulary")
+        @test pyconvert(Float64, pyfloat(formulary.lengths.Debye_length(10 * units.eV, 1e19 / units.m^3) / units.m)) ≈ ustrip(u"m", PlasmaFormulary.debye_length(1e19 * u"m^-3", 10 * u"eV")) rtol=1e-3
     end
 end
