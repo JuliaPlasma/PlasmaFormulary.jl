@@ -28,4 +28,14 @@ using LinearAlgebra
         @test plasma_frequency(1e19u"m^-3", 1, Unitful.mp / Unitful.u) ≈ 4163294534.0u"s^-1"
         @test plasma_frequency(1e19u"m^-3") ≈ 1.783986365e11u"s^-1"
     end
+
+    @testset "dimensionless.jl" begin
+        T = 2.0u"eV"
+        n = 1e19u"m^-3"
+        B = 0.1u"T"
+        @test plasma_beta(T, n, B) == plasma_beta(n, B, PlasmaFormulary.temperature(T)) == plasma_beta(n, T, B)
+
+        units = pyimport("astropy.units")
+        formulary = pyimport("plasmapy.formulary")
+    end
 end
