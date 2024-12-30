@@ -1,5 +1,6 @@
 # API Reference
 
-```@autodocs
-Modules = [PlasmaFormulary]
+## Dimensionless numbers
+```@docs
+plasma_beta
 ```
