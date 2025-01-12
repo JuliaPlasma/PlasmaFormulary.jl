@@ -54,7 +54,7 @@ julia> plasma_frequency(1e19u"m^-3")  # plasma frequency
 1.7839863654934653e11 s⁻¹
 
 julia> plasma_frequency(1e19u"m^-3", :p)  # proton plasma frequency
-4.163294562488352e9 s⁻¹
+4.1632945624883513e9 s⁻¹
 ```
 
 # References
