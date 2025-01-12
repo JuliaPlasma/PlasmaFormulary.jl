@@ -44,4 +44,6 @@ formulary = pyimport("plasmapy.formulary")
 
         @test pyconvert(Float64, pyfloat(formulary.lengths.Debye_length(10 * units.eV, 1e19 / units.m^3) / units.m)) ≈ ustrip(u"m", PlasmaFormulary.debye_length(1e19 * u"m^-3", 10 * u"eV")) rtol=1e-3
     end
+
+    include("frequencies.jl")
 end
