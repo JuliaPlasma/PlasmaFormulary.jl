@@ -7,6 +7,8 @@ using Unitful: me, mp, u
 using Unitful: Velocity, Mass, BField, Density, Charge
 using UnitfulEquivalences
 using PermuteArgs
+using ChargedParticles
+using ChargedParticles:ParticleLike
 
 @derived_dimension NumberDensity Unitful.𝐋^-3
 
