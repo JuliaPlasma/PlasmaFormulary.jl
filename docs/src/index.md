@@ -7,7 +7,10 @@ CurrentModule = PlasmaFormulary
 A Julia package for plasma physics formulas.
 This package implements a subset of the formulas found in the [NRL Plasma Formulary](https://www.nrl.navy.mil/News-Media/Publications/NRL-Plasma-Formulary/), as well as some additional formulas taken from the [PlasmaPy](https://docs.plasmapy.org) project.
 
-In the future, the package will support providing particle properties using the [ChargedParticles.jl](https://github.com/Beforerr/ChargedParticles.jl) package.
+## Features
+
+- For functions that take a `ParticleLike` as an argument, we use [ChargedParticles.jl](https://github.com/Beforerr/ChargedParticles.jl) package to handle particle properties. One could provide a symbolic particle name or string or a Particle object for the argument. In addition, mass number and charge number can be specified as keyword arguments for these functions.
+- For function whose arguments are `Unitful` quantities with unique dimensions, arguments are order independent (see [PermuteArgs.jl](https://github.com/Beforerr/PermuteArgs.jl)).
 
 ## Quick Example
 
