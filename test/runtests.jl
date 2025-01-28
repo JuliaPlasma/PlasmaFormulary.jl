@@ -8,6 +8,8 @@ using CondaPkg
 
 CondaPkg.add(["astropy", "plasmapy"])
 
+include("test_utils.jl")
+
 units = pyimport("astropy.units")
 formulary = pyimport("plasmapy.formulary")
 
@@ -39,7 +41,7 @@ formulary = pyimport("plasmapy.formulary")
         B = 0.1u"T"
         @test plasma_beta(T, n, B) == plasma_beta(n, B, PlasmaFormulary.temperature(T)) == plasma_beta(n, T, B)
 
-        @test pyconvert(Float64, pyfloat(formulary.lengths.Debye_length(10 * units.eV, 1e19 / units.m^3) / units.m)) ≈ ustrip(u"m", PlasmaFormulary.debye_length(1e19 * u"m^-3", 10 * u"eV")) rtol=1e-3
+        @test pyustrip(units.m, formulary.lengths.Debye_length(10 * units.eV, 1e19 / units.m^3)) ≈ ustrip(u"m", PlasmaFormulary.debye_length(1e19 * u"m^-3", 10 * u"eV")) rtol=1e-3
     end
 
     include("frequencies.jl")
