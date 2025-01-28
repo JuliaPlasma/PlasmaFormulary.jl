@@ -61,7 +61,7 @@ include("speeds.jl")
 export alfven_velocity, thermal_velocity, thermal_temperature, electron_thermal_velocity
 
 include("frequencies.jl")
-export gyrofrequency, electron_gyrofrequency, ion_gyrofrequency, plasma_frequency
+export gyrofrequency, plasma_frequency
 
 include("misc.jl")
 export thermal_pressure, magnetic_pressure

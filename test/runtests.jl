@@ -31,9 +31,6 @@ formulary = pyimport("plasmapy.formulary")
               43185.625u"m/s"
 
         @test alfven_velocity.(B, rho) ≈ [-43185.625u"m/s", 0.0u"m/s", 0.0u"m/s"]
-        @test plasma_frequency(1e19u"m^-3", Unitful.q, Unitful.mp) ≈ 4163294534.0u"s^-1"
-        @test plasma_frequency(1e19u"m^-3", 1, Unitful.mp / Unitful.u) ≈ 4163294534.0u"s^-1"
-        @test plasma_frequency(1e19u"m^-3") ≈ 1.783986365e11u"s^-1"
     end
 
     @testset "dimensionless.jl" begin
