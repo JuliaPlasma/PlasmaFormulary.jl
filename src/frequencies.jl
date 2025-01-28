@@ -1,5 +1,6 @@
 """
     gyrofrequency(B::BField, p::ParticleLike; kw...)
+    gyrofrequency(B::BField, mass::Mass, q::Charge)
 
 Calculate the gyrofrequency (or cyclotron frequency) of a charged particle's circular motion in a magnetic field.
 The gyrofrequency is the frequency of a charged particle's gyromotion around magnetic field lines.
@@ -30,18 +31,9 @@ end
     return gyrofrequency(B, mass(p), charge(p))
 end
 
-function electron_gyrofrequency(B::BField)
-    gyrofrequency(B, me, Unitful.q)
-end
-
-function ion_gyrofrequency(B::BField, Z, mass::Mass)
-    gyrofrequency(B, mass, Z * Unitful.q)
-end
-
 """
     plasma_frequency(n::NumberDensity, [q::Charge, mass::Mass])
     plasma_frequency(n::NumberDensity, p::ParticleLike; kw...)
-    plasma_frequency(n::NumberDensity, Z::Integer, mass_numb)
 
 Calculate the plasma frequency of a species.
 
@@ -72,8 +64,4 @@ end
     return plasma_frequency(n, charge(p), mass(p))
 end
 
-
 plasma_frequency(n::NumberDensity) = plasma_frequency(n, Unitful.q, me)
-
-plasma_frequency(n::NumberDensity, Z::Integer, mass_number) =
-    plasma_frequency(n, Z * Unitful.q, mass_number * Unitful.u)

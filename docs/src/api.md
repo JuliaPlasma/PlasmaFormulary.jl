@@ -5,7 +5,7 @@
 plasma_beta
 ```
 
-## Plasma frequency parameters
+## Frequencies
 
 ```@docs
 plasma_frequency
