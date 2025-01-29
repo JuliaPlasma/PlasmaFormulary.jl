@@ -4,6 +4,9 @@ using Aqua
 using Unitful
 using LinearAlgebra
 using PythonCall
+using CondaPkg
+
+CondaPkg.add(["astropy", "plasmapy"])
 
 units = pyimport("astropy.units")
 formulary = pyimport("plasmapy.formulary")
