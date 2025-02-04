@@ -6,7 +6,10 @@ using Unitful: k, ħ
 using Unitful: me, mp, u
 using Unitful: Velocity, Mass, BField, Density, Charge
 using UnitfulEquivalences
+using DimensionfulAngles: radᵃ as rad
 using PermuteArgs
+using ChargedParticles
+using ChargedParticles: ParticleLike
 
 @derived_dimension NumberDensity Unitful.𝐋^-3
 
@@ -59,7 +62,7 @@ include("speeds.jl")
 export alfven_velocity, thermal_velocity, thermal_temperature, electron_thermal_velocity
 
 include("frequencies.jl")
-export gyrofrequency, electron_gyrofrequency, ion_gyrofrequency, plasma_frequency
+export gyrofrequency, plasma_frequency
 
 include("misc.jl")
 export thermal_pressure, magnetic_pressure
