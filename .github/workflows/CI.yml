@@ -62,10 +62,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
-      - name: Run doctests
-        shell: julia --project=docs --color=yes {0}
-        run: |
-          using Documenter: DocMeta, doctest
-          using PlasmaFormulary
-          DocMeta.setdocmeta!(PlasmaFormulary, :DocTestSetup, :(using PlasmaFormulary, Unitful, DimensionfulAngles); recursive=true)
-          doctest(PlasmaFormulary)
