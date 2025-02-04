@@ -18,6 +18,10 @@ This package implements a subset of the formulas found in the [NRL Plasma Formul
 using PlasmaFormulary, Unitful
 
 PlasmaFormulary.debye_length(1e18u"cm^-3", 10u"eV")
+
+gyrofrequency(0.01u"T", :e) # electron gyrofrequency
+
+plasma_frequency(1e19u"m^-3", "proton") # proton plasma frequency
 ```
 
 ## Installation
