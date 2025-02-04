@@ -6,9 +6,10 @@ using Unitful: k, ħ
 using Unitful: me, mp, u
 using Unitful: Velocity, Mass, BField, Density, Charge
 using UnitfulEquivalences
+using DimensionfulAngles: radᵃ as rad
 using PermuteArgs
 using ChargedParticles
-using ChargedParticles:ParticleLike
+using ChargedParticles: ParticleLike
 
 @derived_dimension NumberDensity Unitful.𝐋^-3
 
