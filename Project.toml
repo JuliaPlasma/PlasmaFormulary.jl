@@ -11,10 +11,8 @@ Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
 UnitfulEquivalences = "da9c4bc3-91c8-4f02-8a40-6b990d2a7e0c"
 
 [compat]
-Aqua = "0.8"
 ChargedParticles = "0.3.0"
 DimensionfulAngles = "0.2.1"
-LinearAlgebra = "1.10"
 PermuteArgs = "1.2.1"
 Unitful = "1.0"
 UnitfulEquivalences = "0.2"
