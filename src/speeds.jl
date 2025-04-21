@@ -9,9 +9,22 @@ function alfven_velocity(B::BField, ρ::Density)
     return B / sqrt(μ0 * ρ) |> upreferred
 end
 
-function alfven_velocity(B::BField, n::NumberDensity, mass_number)
+function alfven_velocity(B::BField, n::NumberDensity, mass_number=1)
     ρ = n * mass_number * mp
     return alfven_velocity(B, ρ)
+end
+
+
+"""
+Calculate the Alfven velocity for magnetic field vector.
+"""
+alfven_velocity(𝐁::AbstractVector{<:BField}, ρ::Density) =
+    map(𝐁) do B
+        alfven_velocity(B, ρ)
+    end
+
+function alfven_velocity(𝐁::AbstractVector{<:BField}, n::NumberDensity, mass_number=1)
+    alfven_velocity(𝐁, n * mass_number * mp)
 end
 
 # TODO: Add docstrings
@@ -46,8 +59,8 @@ thermal_velocity_coefficients(::NRL, ::Val{3}) = 1.0
 function thermal_velocity(
     T::EnergyOrTemp,
     mass::Unitful.Mass,
-    method::ThermalVelocityMethod = MostProbable(),
-    ndim = 3,
+    method::ThermalVelocityMethod=MostProbable(),
+    ndim=3,
 )
     coeff = thermal_velocity_coefficients(method, Val(ndim))
     return coeff * sqrt(k * temperature(T) / mass)
@@ -56,8 +69,8 @@ end
 function thermal_temperature(
     V::Unitful.Velocity,
     mass::Unitful.Mass,
-    method::ThermalVelocityMethod = MostProbable(),
-    ndim = 3,
+    method::ThermalVelocityMethod=MostProbable(),
+    ndim=3,
 )
     coeff = thermal_velocity_coefficients(method, Val(ndim))
     return mass * V^2 / (k * coeff^2) |> upreferred
