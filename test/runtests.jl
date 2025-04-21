@@ -45,4 +45,5 @@ formulary = pyimport("plasmapy.formulary")
     end
 
     include("frequencies.jl")
+    include("length.jl")
 end
