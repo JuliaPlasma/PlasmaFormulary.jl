@@ -1,6 +1,6 @@
 using PlasmaFormulary
 using Test
-using Aqua
+using TestItems, TestItemRunner
 using Unitful
 using LinearAlgebra
 using PythonCall
@@ -14,7 +14,8 @@ units = pyimport("astropy.units")
 formulary = pyimport("plasmapy.formulary")
 
 @testset "PlasmaFormulary.jl" begin
-    @testset "Code quality (Aqua.jl)" begin
+    @testitem "Code quality (Aqua.jl)" begin
+        using Aqua
         Aqua.test_all(PlasmaFormulary)
     end
 

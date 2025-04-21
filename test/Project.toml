@@ -1,6 +1,7 @@
 [deps]
 Aqua = "4c88cf16-eb10-579e-8560-4a9242c79595"
 CondaPkg = "992eb4ea-22a4-4c89-a5bb-47a3300528ab"
+DimensionfulAngles = "2d4b8d7a-02d9-40f9-9abe-9c695b77de0d"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 PythonCall = "6099a3de-0909-46bc-b1f4-468b9a2dfc0d"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
