@@ -19,7 +19,8 @@ function gyroradius(B::BField, mass::Mass, q::Charge, T::EnergyOrTemp)
 end
 
 electron_gyroradius(B::BField, Vperp::Velocity) = gyroradius(B, me, Unitful.q, Vperp)
-electron_gyroradius(B::BField, T::EnergyOrTemp) = electron_gyroradius(B, thermal_velocity(T, me))
+electron_gyroradius(B::BField, T::EnergyOrTemp) =
+    electron_gyroradius(B, thermal_velocity(T, me))
 
 function electron_debroglie_length(eot::EnergyOrTemp)
     upreferred(sqrt(2 * pi * ħ^2 / me / energy(eot)))
@@ -35,7 +36,13 @@ The inertial length is the characteristic length scale for a particle to be acce
 References: [PlasmaPy API Documentation](https://docs.plasmapy.org/en/latest/api/plasmapy.formulary.lengths.inertial_length.html)
 """
 function inertial_length(n::NumberDensity, q::Charge, mass::Mass)
-    upreferred(c / plasma_frequency(n, q, mass))
+    ω_p = uconvert(:Unitful, plasma_frequency(n, q, mass))
+    upreferred(c / ω_p)
+end
+
+function inertial_length(n::NumberDensity, p::ParticleLike; kw...)
+    p = particle(p; kw...)
+    return inertial_length(n, charge(p), mass(p))
 end
 
 electron_inertial_length(n::NumberDensity) = upreferred(c / plasma_frequency(n))

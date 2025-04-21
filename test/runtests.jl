@@ -1,6 +1,6 @@
 using PlasmaFormulary
 using Test
-using Aqua
+using TestItems, TestItemRunner
 using Unitful
 using LinearAlgebra
 using PythonCall
@@ -8,11 +8,14 @@ using CondaPkg
 
 CondaPkg.add(["astropy", "plasmapy"])
 
+include("test_utils.jl")
+
 units = pyimport("astropy.units")
 formulary = pyimport("plasmapy.formulary")
 
 @testset "PlasmaFormulary.jl" begin
-    @testset "Code quality (Aqua.jl)" begin
+    @testitem "Code quality (Aqua.jl)" begin
+        using Aqua
         Aqua.test_all(PlasmaFormulary)
     end
 
@@ -31,9 +34,6 @@ formulary = pyimport("plasmapy.formulary")
               43185.625u"m/s"
 
         @test alfven_velocity.(B, rho) ≈ [-43185.625u"m/s", 0.0u"m/s", 0.0u"m/s"]
-        @test plasma_frequency(1e19u"m^-3", Unitful.q, Unitful.mp) ≈ 4163294534.0u"s^-1"
-        @test plasma_frequency(1e19u"m^-3", 1, Unitful.mp / Unitful.u) ≈ 4163294534.0u"s^-1"
-        @test plasma_frequency(1e19u"m^-3") ≈ 1.783986365e11u"s^-1"
     end
 
     @testset "dimensionless.jl" begin
@@ -42,6 +42,9 @@ formulary = pyimport("plasmapy.formulary")
         B = 0.1u"T"
         @test plasma_beta(T, n, B) == plasma_beta(n, B, PlasmaFormulary.temperature(T)) == plasma_beta(n, T, B)
 
-        @test pyconvert(Float64, pyfloat(formulary.lengths.Debye_length(10 * units.eV, 1e19 / units.m^3) / units.m)) ≈ ustrip(u"m", PlasmaFormulary.debye_length(1e19 * u"m^-3", 10 * u"eV")) rtol=1e-3
+        @test pyustrip(units.m, formulary.lengths.Debye_length(10 * units.eV, 1e19 / units.m^3)) ≈ ustrip(u"m", PlasmaFormulary.debye_length(1e19 * u"m^-3", 10 * u"eV")) rtol=1e-3
     end
+
+    include("frequencies.jl")
+    include("length.jl")
 end
