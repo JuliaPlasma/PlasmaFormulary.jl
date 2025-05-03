@@ -1,6 +1,7 @@
 module PlasmaFormulary
 
 using Unitful
+using Unitful: 𝐋, 𝐈
 using Unitful: μ0, ε0, c, q
 using Unitful: k, ħ
 using Unitful: me, mp, u
@@ -11,7 +12,8 @@ using PermuteArgs
 using ChargedParticles
 using ChargedParticles: ParticleLike
 
-@derived_dimension NumberDensity Unitful.𝐋^-3
+@derived_dimension NumberDensity 𝐋^-3
+@derived_dimension CurrentDensity 𝐈 / 𝐋^2
 
 const EnergyOrTemp = Union{Unitful.Temperature, Unitful.Energy}
 
