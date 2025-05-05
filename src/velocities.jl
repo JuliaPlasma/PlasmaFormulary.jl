@@ -30,7 +30,7 @@ function ExB_drift end
 
 Calculate the general force drift for a particle in a magnetic field given by:
 ```math
-𝐯 = (𝐅 × 𝐁) / (q * |𝐁|^2)
+𝐯 = (𝐅 × 𝐁) / (q |𝐁|^2)
 ```
 """
 force_drift(𝐅, 𝐁::BFields, q = Unitful.q) = 𝐅 × 𝐁 / (q * 𝐁 ⋅ 𝐁) .|> upreferred
