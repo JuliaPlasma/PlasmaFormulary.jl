@@ -9,8 +9,12 @@ Calculate the diamagnetic drift velocity given by:
 
 where ``∇p`` is the pressure gradient.
 """
-function diamagnetic_drift(∇p, B::BFields, n, q = Unitful.q)
+function diamagnetic_drift end
+@permute_args diamagnetic_drift(∇p, B::BFields, n::NumberDensity, q::Charge) =
     -(∇p × B) / (q * n * B ⋅ B) .|> upreferred
+
+@permute_args function diamagnetic_drift(∇p, B::BFields, n::NumberDensity; q = Unitful.q)
+    diamagnetic_drift(∇p, B, n, q)
 end
 
 """
@@ -33,4 +37,6 @@ Calculate the general force drift for a particle in a magnetic field given by:
 𝐯 = (𝐅 × 𝐁) / (q |𝐁|^2)
 ```
 """
-force_drift(𝐅, 𝐁::BFields, q = Unitful.q) = 𝐅 × 𝐁 / (q * 𝐁 ⋅ 𝐁) .|> upreferred
+function force_drift end
+@permute_args force_drift(𝐅, 𝐁::BFields, q::Charge) = 𝐅 × 𝐁 / (q * 𝐁 ⋅ 𝐁) .|> upreferred
+@permute_args force_drift(𝐅, 𝐁::BFields; q = Unitful.q) = force_drift(𝐅, 𝐁, q)

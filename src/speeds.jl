@@ -11,9 +11,13 @@ Alfvén speed ``V_A``, the typical propagation speed of magnetic disturbances in
 Note that this is different from the Alfven velocity, see also [`Alfven_velocity`](@ref).
 References: [PlasmaPy API Documentation](https://docs.plasmapy.org/en/stable/api/plasmapy.formulary.speeds.Alfven_speed.html)
 """
-Alfven_speed(𝐁::Union{BField,BFields}, ρ::Density) = norm(𝐁) / sqrt(μ0 * ρ) |> upreferred
-Alfven_speed(𝐁::Union{BField,BFields}, n::NumberDensity, mass_number = 1) =
+function Alfven_speed end
+@permute_args Alfven_speed(𝐁::Union{BField,BFields}, ρ::Density) =
+    norm(𝐁) / sqrt(μ0 * ρ) |> upreferred
+@permute_args Alfven_speed(𝐁::Union{BField,BFields}, n::NumberDensity, mass_number) =
     Alfven_speed(𝐁, n * mass_number * mp)
+@permute_args Alfven_speed(𝐁::Union{BField,BFields}, n::NumberDensity; mass_number = 1) =
+    Alfven_speed(𝐁, n, mass_number)
 
 """
     Alfven_velocity(B::BField, ρ)
@@ -21,9 +25,13 @@ Alfven_speed(𝐁::Union{BField,BFields}, n::NumberDensity, mass_number = 1) =
 
 Calculate the Alfven velocity for magnetic field vector. See also [`Alfven_speed`](@ref).
 """
-Alfven_velocity(B::Union{BField,BFields}, ρ::Density) = @. B / sqrt(μ0 * ρ) |> upreferred
-Alfven_velocity(B::Union{BField,BFields}, n::NumberDensity, mass_number = 1) =
+function Alfven_velocity end
+@permute_args Alfven_velocity(B::Union{BField,BFields}, ρ::Density) =
+    @. B / sqrt(μ0 * ρ) |> upreferred
+@permute_args Alfven_velocity(B::Union{BField,BFields}, n::NumberDensity, mass_number) =
     Alfven_velocity(B, n * mass_number * mp)
+@permute_args Alfven_velocity(B::Union{BField,BFields}, n::NumberDensity; mass_number = 1) =
+    Alfven_velocity(B, n, mass_number)
 
 
 # TODO: Add docstrings
