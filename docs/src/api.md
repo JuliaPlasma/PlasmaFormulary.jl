@@ -15,6 +15,6 @@ gyrofrequency
 ## Otherwise undocumented functions
 This section will be removed once the documentation is complete.
 ```@autodocs
-Modules = [PlasmaFormulary]
+Modules = [PlasmaFormularyZ]
 Pages   = ["lengths.jl", "misc.jl", "speeds.jl"]
 ```

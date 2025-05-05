@@ -1,5 +1,5 @@
-using PlasmaFormulary
-using PlasmaFormulary: ion_plasma_frequency
+using PlasmaFormularyZ
+using PlasmaFormularyZ: ion_plasma_frequency
 using Unitful
 using Unitful: mp, me, q
 using Test

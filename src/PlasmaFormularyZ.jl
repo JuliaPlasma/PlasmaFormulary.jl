@@ -1,4 +1,4 @@
-module PlasmaFormulary
+module PlasmaFormularyZ
 
 using Unitful
 using Unitful: 𝐋, 𝐈
