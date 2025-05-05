@@ -1,8 +1,8 @@
 ```@meta
-CurrentModule = PlasmaFormulary
+CurrentModule = PlasmaFormularyZ
 ```
 
-# PlasmaFormulary
+# PlasmaFormularyZ
 
 A Julia package for plasma physics formulas.
 This package implements a subset of the formulas found in the [NRL Plasma Formulary](https://www.nrl.navy.mil/News-Media/Publications/NRL-Plasma-Formulary/), as well as some additional formulas taken from the [PlasmaPy](https://docs.plasmapy.org) project.
@@ -15,9 +15,9 @@ This package implements a subset of the formulas found in the [NRL Plasma Formul
 ## Quick Example
 
 ```@repl share
-using PlasmaFormulary, Unitful
+using PlasmaFormularyZ, Unitful
 
-PlasmaFormulary.debye_length(1e18u"cm^-3", 10u"eV")
+PlasmaFormularyZ.debye_length(1e18u"cm^-3", 10u"eV")
 
 gyrofrequency(0.01u"T", :e) # electron gyrofrequency
 
@@ -28,7 +28,7 @@ plasma_frequency(1e19u"m^-3", "proton") # proton plasma frequency
 
 ```julia
 using Pkg
-Pkg.add(url="https://github.com/JuliaPlasma/PlasmaFormulary.jl")
+Pkg.add(url="https://github.com/Beforerr/PlasmaFormularyZ.jl")
 ```
 
 ## Related packages
