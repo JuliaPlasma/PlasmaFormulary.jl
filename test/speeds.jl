@@ -19,10 +19,6 @@
           [-43185.625u"m/s", 0.0u"m/s", 0.0u"m/s"]
 end
 
-using Test
-using Unitful
-using PlasmaFormularyZ
-
 @testitem "Ion sound speed" begin
     using Unitful
     using Unitful: mp
