@@ -8,10 +8,13 @@
     mass_number = 1
     rho = n * mass_number * Unitful.mp
     @test Alfven_speed(B, rho) ==
+          Alfven_speed(rho, B) ==
           norm(Alfven_velocity(B, rho)) ==
           Alfven_velocity(Bmag, rho) ==
           Alfven_velocity(Bmag, n, mass_number) ≈
           43185.625u"m/s"
 
-    @test Alfven_velocity(B, rho) ≈ [-43185.625u"m/s", 0.0u"m/s", 0.0u"m/s"]
+    @test Alfven_velocity(B, rho) ==
+          Alfven_velocity(rho, B) ≈
+          [-43185.625u"m/s", 0.0u"m/s", 0.0u"m/s"]
 end

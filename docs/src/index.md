@@ -17,7 +17,7 @@ This package implements a subset of the formulas found in the [NRL Plasma Formul
 ```@repl share
 using PlasmaFormularyZ, Unitful
 
-PlasmaFormularyZ.debye_length(1e18u"cm^-3", 10u"eV")
+debye_length(1e18u"cm^-3", 10u"eV")
 
 gyrofrequency(0.01u"T", :e) # electron gyrofrequency
 

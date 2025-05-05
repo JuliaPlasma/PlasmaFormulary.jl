@@ -11,7 +11,9 @@
     B = [0, 0, 1]u"T"
     n = 1u"1/m^3"
     q = 1u"C"
-    @test diamagnetic_drift(dp, B, n, q) ≈ [1, -0, -0]u"m/s"
+    @test diamagnetic_drift(dp, B, n, q) ≈
+          diamagnetic_drift(B, dp, n, q) ≈
+          [1, -0, -0]u"m/s"
 
     # ExB drift
     E = ex * u"V/m"
@@ -24,7 +26,7 @@
     g0 = 9.80665u"m/s^2"
     F = -ez * g0 * me
     B = ex * 0.01u"T"
-    v = @test force_drift(F, B) ≈ [0.0, -5.5756984e-9, 0.0]u"m/s"
+    @test force_drift(F, B) ≈ force_drift(B, F) ≈ [0.0, -5.5756984e-9, 0.0]u"m/s"
     @test force_drift(F, ez * 0.01u"T") ≈ [0.0, -0.0, 0.0]u"m/s"
     @test force_drift(F, ex * u"T") ≈ [0.0, -5.5756984e-11, 0.0]u"m/s"
 end
