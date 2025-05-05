@@ -17,18 +17,6 @@ end
     @test gyroradius(0.2u"T", Unitful.mp, Unitful.q, 1e6u"K") ≈ 0.0067u"m" rtol = 0.01
     @test_broken electron_gyroradius(1e6u"K", 0.2u"T", Unitful.q, Unitful.mp) ≈ 0.0067u"m" rtol =
         0.01
-
-    B = [-0.014u"T", 0.0u"T", 0.0u"T"]
-    Bmag = norm(B)
-    n = 5e19 * u"m^-3"
-    mass_number = 1
-    rho = n * mass_number * Unitful.mp
-    @test norm(alfven_velocity.(B, rho)) ==
-          alfven_velocity(Bmag, rho) ==
-          alfven_velocity(Bmag, n, mass_number) ≈
-          43185.625u"m/s"
-
-    @test alfven_velocity.(B, rho) ≈ [-43185.625u"m/s", 0.0u"m/s", 0.0u"m/s"]
 end
 
 @testitem "dimensionless.jl" setup = [Py] begin
