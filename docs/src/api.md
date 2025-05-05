@@ -20,6 +20,12 @@ ExB_drift
 force_drift
 ```
 
+## Aliases
+
+```@autodocs
+Modules = [PlasmaFormularyZ.Aliases]
+```
+
 ## Otherwise undocumented functions
 This section will be removed once the documentation is complete.
 ```@autodocs
