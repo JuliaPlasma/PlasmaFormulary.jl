@@ -14,13 +14,13 @@ function gyroradius(B::BField, mass::Mass, q::Charge, Vperp::Velocity)
 end
 
 function gyroradius(B::BField, mass::Mass, q::Charge, T::EnergyOrTemp)
-    Vperp = thermal_velocity(T, mass)
+    Vperp = thermal_speed(T, mass)
     return gyroradius(B, mass, q, Vperp)
 end
 
 electron_gyroradius(B::BField, Vperp::Velocity) = gyroradius(B, me, Unitful.q, Vperp)
 electron_gyroradius(B::BField, T::EnergyOrTemp) =
-    electron_gyroradius(B, thermal_velocity(T, me))
+    electron_gyroradius(B, thermal_speed(T, me))
 
 function electron_debroglie_length(eot::EnergyOrTemp)
     upreferred(sqrt(2 * pi * ħ^2 / me / energy(eot)))

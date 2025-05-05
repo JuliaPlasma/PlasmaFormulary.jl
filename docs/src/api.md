@@ -15,9 +15,18 @@ gyrofrequency
 ## Velocites
 
 ```@docs
+Alfven_velocity
 diamagnetic_drift
 ExB_drift
 force_drift
+```
+
+## Speeds
+
+```@docs
+Alfven_speed
+ion_sound_speed
+thermal_speed
 ```
 
 ## Aliases
@@ -26,9 +35,15 @@ force_drift
 Modules = [PlasmaFormularyZ.Aliases]
 ```
 
+## Constants
+
+```@docs
+thermal_velocity_coefficients
+```
+
 ## Otherwise undocumented functions
 This section will be removed once the documentation is complete.
 ```@autodocs
 Modules = [PlasmaFormularyZ]
-Pages   = ["lengths.jl", "misc.jl", "speeds.jl"]
+Pages   = ["lengths.jl", "misc.jl"]
 ```
