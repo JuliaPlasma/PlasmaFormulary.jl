@@ -38,7 +38,7 @@ Modules = [PlasmaFormularyZ.Aliases]
 ## Constants
 
 ```@docs
-thermal_velocity_coefficients
+PlasmaFormularyZ.thermal_velocity_coefficients
 ```
 
 ## Otherwise undocumented functions
