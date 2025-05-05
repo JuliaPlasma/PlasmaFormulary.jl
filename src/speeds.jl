@@ -1,31 +1,30 @@
 # TODO: Sound speed
 
 """
-The typical propagation speed of magnetic disturbances in a quasineutral plasma.
+    Alfven_speed(B::BField, ρ)
+    Alfven_speed(𝐁::Vector{BField}, ρ)
+    Alfven_speed(B::BField, n::NumberDensity, mass_number = 1)
+    Alfven_speed(𝐁::Vector{BField}, n::NumberDensity, mass_number = 1)
 
+Alfvén speed ``V_A``, the typical propagation speed of magnetic disturbances in a quasineutral plasma.
+
+Note that this is different from the Alfven velocity, see also [`Alfven_velocity`](@ref).
 References: [PlasmaPy API Documentation](https://docs.plasmapy.org/en/stable/api/plasmapy.formulary.speeds.Alfven_speed.html)
 """
-function alfven_velocity(B::BField, ρ::Density)
-    return B / sqrt(μ0 * ρ) |> upreferred
-end
-
-function alfven_velocity(B::BField, n::NumberDensity, mass_number=1)
-    ρ = n * mass_number * mp
-    return alfven_velocity(B, ρ)
-end
-
+Alfven_speed(𝐁::Union{BField,BFields}, ρ::Density) = norm(𝐁) / sqrt(μ0 * ρ) |> upreferred
+Alfven_speed(𝐁::Union{BField,BFields}, n::NumberDensity, mass_number = 1) =
+    Alfven_speed(𝐁, n * mass_number * mp)
 
 """
-Calculate the Alfven velocity for magnetic field vector.
-"""
-alfven_velocity(𝐁::AbstractVector{<:BField}, ρ::Density) =
-    map(𝐁) do B
-        alfven_velocity(B, ρ)
-    end
+    Alfven_velocity(B::BField, ρ)
+    Alfven_velocity(𝐁::Vector{BField}, ρ)
 
-function alfven_velocity(𝐁::AbstractVector{<:BField}, n::NumberDensity, mass_number=1)
-    alfven_velocity(𝐁, n * mass_number * mp)
-end
+Calculate the Alfven velocity for magnetic field vector. See also [`Alfven_speed`](@ref).
+"""
+Alfven_velocity(B::Union{BField,BFields}, ρ::Density) = @. B / sqrt(μ0 * ρ) |> upreferred
+Alfven_velocity(B::Union{BField,BFields}, n::NumberDensity, mass_number = 1) =
+    Alfven_velocity(B, n * mass_number * mp)
+
 
 # TODO: Add docstrings
 abstract type ThermalVelocityMethod end
@@ -59,8 +58,8 @@ thermal_velocity_coefficients(::NRL, ::Val{3}) = 1.0
 function thermal_velocity(
     T::EnergyOrTemp,
     mass::Unitful.Mass,
-    method::ThermalVelocityMethod=MostProbable(),
-    ndim=3,
+    method::ThermalVelocityMethod = MostProbable(),
+    ndim = 3,
 )
     coeff = thermal_velocity_coefficients(method, Val(ndim))
     return coeff * sqrt(k * temperature(T) / mass)
@@ -69,8 +68,8 @@ end
 function thermal_temperature(
     V::Unitful.Velocity,
     mass::Unitful.Mass,
-    method::ThermalVelocityMethod=MostProbable(),
-    ndim=3,
+    method::ThermalVelocityMethod = MostProbable(),
+    ndim = 3,
 )
     coeff = thermal_velocity_coefficients(method, Val(ndim))
     return mass * V^2 / (k * coeff^2) |> upreferred

@@ -12,6 +12,14 @@ plasma_frequency
 gyrofrequency
 ```
 
+## Velocites
+
+```@docs
+diamagnetic_drift
+ExB_drift
+force_drift
+```
+
 ## Otherwise undocumented functions
 This section will be removed once the documentation is complete.
 ```@autodocs
