@@ -51,7 +51,7 @@ export gyroradius,
 
 include("speeds.jl")
 include("velocities.jl")
-export Alfven_velocity, Alfven_speed
+export Alfven_velocity, Alfven_speed, ion_sound_speed
 export diamagnetic_drift, ExB_drift, force_drift
 export thermal_velocity, thermal_temperature, electron_thermal_velocity
 
