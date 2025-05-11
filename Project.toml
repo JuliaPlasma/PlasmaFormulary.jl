@@ -1,5 +1,5 @@
-name = "PlasmaFormularyZ"
-uuid = "dc2d6567-3550-4522-9c56-80c55ec70824"
+name = "PlasmaFormulary"
+uuid = "d26ff896-aba2-4e70-a0a6-448627456efe"
 authors = ["Zijin Zhang", "Luke Adams <luke@lukeclydeadams.com>"]
 version = "0.1.0"
 

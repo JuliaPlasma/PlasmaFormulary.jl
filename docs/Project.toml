@@ -1,5 +1,5 @@
 [deps]
 DimensionfulAngles = "2d4b8d7a-02d9-40f9-9abe-9c695b77de0d"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
-PlasmaFormularyZ = "dc2d6567-3550-4522-9c56-80c55ec70824"
+PlasmaFormulary = "d26ff896-aba2-4e70-a0a6-448627456efe"
 Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"

@@ -26,11 +26,11 @@ end
     n = 1e19u"m^-3"
     B = 0.1u"T"
     @test plasma_beta(T, n, B) ==
-          plasma_beta(n, B, PlasmaFormularyZ.temperature(T)) ==
+          plasma_beta(n, B, PlasmaFormulary.temperature(T)) ==
           plasma_beta(n, T, B)
 
     @test pyustrip(
         units.m,
         formulary.lengths.Debye_length(10 * units.eV, 1e19 / units.m^3),
-    ) ≈ ustrip(u"m", PlasmaFormularyZ.debye_length(1e19 * u"m^-3", 10 * u"eV")) rtol = 1e-3
+    ) ≈ ustrip(u"m", PlasmaFormulary.debye_length(1e19 * u"m^-3", 10 * u"eV")) rtol = 1e-3
 end
