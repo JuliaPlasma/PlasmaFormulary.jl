@@ -1,8 +1,8 @@
 using TestItems, TestItemRunner
-using CondaPkg
-CondaPkg.add(["astropy", "plasmapy"])
 
 @testsnippet Py begin
+    using CondaPkg
+    CondaPkg.add(["astropy", "plasmapy"])
     using PythonCall
     include("test_utils.jl")
     units = pyimport("astropy.units")
@@ -10,6 +10,11 @@ CondaPkg.add(["astropy", "plasmapy"])
 end
 
 @run_package_tests
+
+@testitem "Aqua" begin
+    using Aqua
+    Aqua.test_all(PlasmaFormulary)
+end
 
 @testitem "Misc" begin
     using Unitful

@@ -1,8 +1,6 @@
 """
-    Alfven_speed(B::BField, ρ)
-    Alfven_speed(𝐁::Vector{BField}, ρ)
-    Alfven_speed(B::BField, n::NumberDensity, mass_number = 1)
-    Alfven_speed(𝐁::Vector{BField}, n::NumberDensity, mass_number = 1)
+    Alfven_speed(B::BFieldOrBFields, ρ)
+    Alfven_speed(B::BFieldOrBFields, n::NumberDensity, mass_number = 1)
 
 Alfvén speed ``V_A``, the typical propagation speed of magnetic disturbances in a quasineutral plasma.
 
@@ -10,11 +8,13 @@ Note that this is different from the Alfven velocity, see also [`Alfven_velocity
 References: [PlasmaPy API Documentation](https://docs.plasmapy.org/en/stable/api/plasmapy.formulary.speeds.Alfven_speed.html)
 """
 function Alfven_speed end
-@permute_args Alfven_speed(𝐁::Union{BField,BFields}, ρ::Density) =
+@permute_args Alfven_speed(𝐁::BFieldOrBFields, ρ::Density) =
     norm(𝐁) / sqrt(μ0 * ρ) |> upreferred
-@permute_args Alfven_speed(𝐁::Union{BField,BFields}, n::NumberDensity, mass_number) =
+
+# Notes: `mp * mass_number` is not rigorously the ion mass
+@permute_args Alfven_speed(𝐁::BFieldOrBFields, n::NumberDensity, mass_number::Real) =
     Alfven_speed(𝐁, n * mass_number * mp)
-@permute_args Alfven_speed(𝐁::Union{BField,BFields}, n::NumberDensity; mass_number = 1) =
+@permute_args Alfven_speed(𝐁::BFieldOrBFields, n::NumberDensity; mass_number::Real = 1) =
     Alfven_speed(𝐁, n, mass_number)
 
 """
@@ -24,11 +24,11 @@ function Alfven_speed end
 Calculate the Alfven velocity for magnetic field vector. See also [`Alfven_speed`](@ref).
 """
 function Alfven_velocity end
-@permute_args Alfven_velocity(B::Union{BField,BFields}, ρ::Density) =
+@permute_args Alfven_velocity(B::BFieldOrBFields, ρ::Density) =
     @. B / sqrt(μ0 * ρ) |> upreferred
-@permute_args Alfven_velocity(B::Union{BField,BFields}, n::NumberDensity, mass_number) =
+@permute_args Alfven_velocity(B::BFieldOrBFields, n::NumberDensity, mass_number::Real) =
     Alfven_velocity(B, n * mass_number * mp)
-@permute_args Alfven_velocity(B::Union{BField,BFields}, n::NumberDensity; mass_number = 1) =
+@permute_args Alfven_velocity(B::BFieldOrBFields, n::NumberDensity; mass_number::Real = 1) =
     Alfven_velocity(B, n, mass_number)
 
 
