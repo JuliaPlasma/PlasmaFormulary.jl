@@ -1,22 +1,22 @@
-using PlasmaFormularyZ
+using PlasmaFormulary
 using Documenter
 
 DocMeta.setdocmeta!(
-    PlasmaFormularyZ,
+    PlasmaFormulary,
     :DocTestSetup,
-    :(using PlasmaFormularyZ, Unitful, DimensionfulAngles);
+    :(using PlasmaFormulary, Unitful, DimensionfulAngles);
     recursive = true,
 )
 
 makedocs(;
-    modules = [PlasmaFormularyZ],
-    sitename = "PlasmaFormularyZ.jl",
+    modules = [PlasmaFormulary],
+    sitename = "PlasmaFormulary.jl",
     pages = ["Home" => "index.md", "API Reference" => "api.md"],
     doctest = true,
 )
 
 deploydocs(;
-    repo = "github.com/Beforerr/PlasmaFormularyZ.jl",
+    repo = "github.com/JuliaPlasma/PlasmaFormulary.jl",
     devbranch = "main",
     push_preview = true,
 )

@@ -4,7 +4,7 @@ This module provides aliases of the most common plasma functionality for user co
 Aliases are denoted with a trailing underscore (e.g., `alias_`).
 """
 module Aliases
-using ..PlasmaFormularyZ
+using ..PlasmaFormulary
 
 # Ref: https://docs.plasmapy.org/en/stable/formulary/drifts.html
 const vd_ = diamagnetic_drift

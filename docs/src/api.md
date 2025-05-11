@@ -32,18 +32,18 @@ thermal_speed
 ## Aliases
 
 ```@autodocs
-Modules = [PlasmaFormularyZ.Aliases]
+Modules = [PlasmaFormulary.Aliases]
 ```
 
 ## Constants
 
 ```@docs
-PlasmaFormularyZ.thermal_velocity_coefficients
+PlasmaFormulary.thermal_velocity_coefficients
 ```
 
 ## Otherwise undocumented functions
 This section will be removed once the documentation is complete.
 ```@autodocs
-Modules = [PlasmaFormularyZ]
+Modules = [PlasmaFormulary]
 Pages   = ["lengths.jl", "misc.jl"]
 ```
