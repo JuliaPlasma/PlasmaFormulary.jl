@@ -37,6 +37,10 @@ end
 
 Calculate the plasma frequency of a species.
 
+```math
+ω_p = \\sqrt{\\frac{n q^2}{m ε₀}}
+```
+
 The plasma frequency is a characteristic frequency of the plasma. 
 More often, it refers to the frequency at which electrons oscillate in the plasma.
 

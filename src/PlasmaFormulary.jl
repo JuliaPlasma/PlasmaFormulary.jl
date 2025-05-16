@@ -44,6 +44,7 @@ include("dimensionless.jl")
 export plasma_beta
 
 include("lengths.jl")
+const debye_length = Debye_length # to be removed
 export gyroradius,
     electron_gyroradius,
     electron_debroglie_length,
@@ -51,6 +52,7 @@ export gyroradius,
     inertial_length,
     electron_inertial_length,
     ion_inertial_length,
+    Debye_length,
     debye_length
 
 include("speeds.jl")

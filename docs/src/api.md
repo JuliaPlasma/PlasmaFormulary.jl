@@ -12,6 +12,14 @@ plasma_frequency
 gyrofrequency
 ```
 
+## Lengths
+
+```@docs
+gyroradius
+inertial_length
+Debye_length
+```
+
 ## Velocites
 
 ```@docs
@@ -51,5 +59,5 @@ PlasmaFormulary.thermal_velocity_coefficients
 This section will be removed once the documentation is complete.
 ```@autodocs
 Modules = [PlasmaFormulary]
-Pages   = ["lengths.jl", "misc.jl"]
+Pages   = ["misc.jl"]
 ```
