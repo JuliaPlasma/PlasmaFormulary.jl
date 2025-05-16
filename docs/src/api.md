@@ -29,6 +29,12 @@ ion_sound_speed
 thermal_speed
 ```
 
+## Current density
+
+```@docs
+Alfven_current_density
+```
+
 ## Aliases
 
 ```@autodocs

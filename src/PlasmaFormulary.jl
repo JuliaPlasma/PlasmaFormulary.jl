@@ -5,7 +5,7 @@ using Unitful: 𝐋, 𝐈, 𝐌, 𝐓
 using Unitful: μ0, ε0, c, q
 using Unitful: k, ħ
 using Unitful: me, mp, u
-using Unitful: Velocity, Mass, Force, BField, EField, Density, Charge
+using Unitful: Velocity, Mass, Force, BField, EField, Density, Charge, Length
 using UnitfulEquivalences
 using DimensionfulAngles: radᵃ as rad
 using PermuteArgs
@@ -22,6 +22,7 @@ const BFieldOrBFields = Union{BField,BFields}
 const EFields = AbstractVector{<:EField}
 const Forces = AbstractVector{<:Force}
 const PressureGradients = AbstractVector{<:PressureGradient}
+const qe = Unitful.q
 
 # Workaround for UnitfulEquivalences.uconvert not supporting conversions of
 # quantites with the same dimensions. See
@@ -57,6 +58,9 @@ include("velocities.jl")
 export Alfven_velocity, Alfven_speed, ion_sound_speed, thermal_speed
 export diamagnetic_drift, ExB_drift, force_drift
 export thermal_temperature
+
+include("current_density.jl")
+export Alfven_current_density
 
 include("frequencies.jl")
 export gyrofrequency, plasma_frequency
