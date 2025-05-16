@@ -31,7 +31,20 @@ function classical_minimum_approach_distance(eot::EnergyOrTemp)
 end
 
 """
-The inertial length is the characteristic length scale for a particle to be accelerated in a plasma. The Hall effect becomes important on length scales shorter than the ion inertial length.
+    inertial_length(n::NumberDensity, q::Charge, mass::Mass)
+    inertial_length(n::NumberDensity, p::ParticleLike; kw...)
+
+Calculate the inertial length, the characteristic length scale for a particle to be accelerated in a plasma:
+
+```math
+dᵢ = \\frac{c}{ω_p}
+```
+
+where ``ω_p`` is the plasma frequency.
+
+The Hall effect becomes important on length scales shorter than the ion inertial length.
+
+See also: [`plasma_frequency`](@ref).
 
 References: [PlasmaPy API Documentation](https://docs.plasmapy.org/en/latest/api/plasmapy.formulary.lengths.inertial_length.html)
 """
@@ -51,6 +64,19 @@ function ion_inertial_length(n::NumberDensity, Z, mass::Mass)
     inertial_length(n, Z * Unitful.q, mass)
 end
 
-function debye_length(density::NumberDensity, eot::EnergyOrTemp)
-    upreferred(sqrt(ε0 * energy(eot) / density / q^2))
+"""
+    Debye_length(n::NumberDensity, T::EnergyOrTemp)
+
+Calculate the Debye length, exponential scale length for charge screening in an electron plasma with stationary ions:
+
+```math
+λ_D = \\sqrt{\\frac{ε₀ k_B T}{n q^2}}
+```
+
+where ``T`` is the electron temperature, ``n`` is the electron density, and ``q`` is the elementary charge.
+"""
+function Debye_length end
+
+@permute_args function Debye_length(n::NumberDensity, T::EnergyOrTemp)
+    sqrt(ε0 * energy(T) / n / q^2) |> upreferred
 end

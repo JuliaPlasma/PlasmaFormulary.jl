@@ -1,5 +1,7 @@
 """
+    Alfven_current_density(Va::Velocity, n::NumberDensity)
     Alfven_current_density(B::BFieldOrBFields, n::NumberDensity)
+    Alfven_current_density(B::BFieldOrBFields, dᵢ::Length)
 
 Calculate the Alfvén current density ``J_A``, a natural scaling for current density: 
 
@@ -15,7 +17,7 @@ function Alfven_current_density end
 
 @permute_args Alfven_current_density(Va::Velocity, n::NumberDensity) =
     q * n * Va |> upreferred
-@permute_args Alfven_current_density(𝐁::BFieldOrBFields, di::Length) =
-    norm(𝐁) / (μ0 * di) |> upreferred
+@permute_args Alfven_current_density(𝐁::BFieldOrBFields, dᵢ::Length) =
+    norm(𝐁) / (μ0 * dᵢ) |> upreferred
 @permute_args Alfven_current_density(𝐁::BFieldOrBFields, n::NumberDensity) =
     Alfven_current_density(Alfven_speed(𝐁, n), n)
