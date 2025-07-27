@@ -50,3 +50,11 @@ function force_drift end
 @permute_args force_drift(𝐅::Forces, 𝐁::BFields, q::Charge) =
     𝐅 × 𝐁 / (q * 𝐁 ⋅ 𝐁) .|> upreferred
 @permute_args force_drift(𝐅::Forces, 𝐁::BFields; q = Unitful.q) = force_drift(𝐅, 𝐁, q)
+
+function Elsässer(u, B, ρ)
+    return u + Alfven_velocity(B, ρ), u - Alfven_velocity(B, ρ)
+end
+
+function Elsässer(u, B, n::NumberDensity; mass_number = 1)
+    return u + Alfven_velocity(B, n; mass_number), u - Alfven_velocity(B, n; mass_number)
+end
