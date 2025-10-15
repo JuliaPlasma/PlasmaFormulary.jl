@@ -111,6 +111,8 @@ v_{th} = C_o \\sqrt{\\frac{k_B T}{m}}
 where ``T`` is the temperature associated with the distribution, ``m`` is the particle's mass, and ``C_o`` is a constant of proportionality.
 ```
 """
+function thermal_speed end
+
 function thermal_speed(
     T::EnergyOrTemp,
     mass::Mass,
@@ -121,6 +123,22 @@ function thermal_speed(
     return coeff * sqrt(k * temperature(T) / mass)
 end
 
+function thermal_speed(
+    T::EnergyOrTemp,
+    p::ParticleLike,
+    method::ThermalVelocityMethod = MostProbable(),
+    ndim = 3;
+    kw...,
+)
+    pa = particle(p; kw...)
+    return thermal_speed(T, mass(pa), method, ndim)
+end
+
+"""
+    thermal_temperature(V::Velocity, mass::Mass, method::ThermalVelocityMethod = MostProbable(), ndim = 3)
+"""
+function thermal_temperature end
+
 function thermal_temperature(
     V::Unitful.Velocity,
     mass::Unitful.Mass,
@@ -129,6 +147,17 @@ function thermal_temperature(
 )
     coeff = thermal_velocity_coefficients(method, Val(ndim))
     return mass * V^2 / (k * coeff^2) |> upreferred
+end
+
+function thermal_temperature(
+    V::Unitful.Velocity,
+    p::ParticleLike,
+    method::ThermalVelocityMethod = MostProbable(),
+    ndim = 3;
+    kw...,
+)
+    pa = particle(p; kw...)
+    return thermal_temperature(V, mass(pa), method, ndim)
 end
 
 function electron_thermal_speed(eot::EnergyOrTemp)
