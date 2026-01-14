@@ -1,4 +1,5 @@
 using TestItems, TestItemRunner
+using PlasmaFormulary
 
 @testsnippet Py begin
     using CondaPkg
@@ -10,6 +11,19 @@ using TestItems, TestItemRunner
 end
 
 @run_package_tests
+
+@testitem "Doctests" begin
+    using Documenter
+
+    Documenter.DocMeta.setdocmeta!(
+        PlasmaFormulary,
+        :DocTestSetup,
+        :(using PlasmaFormulary; using Unitful);
+        recursive = true,
+    )
+
+    doctest(PlasmaFormulary)
+end
 
 @testitem "Aqua" begin
     using Aqua

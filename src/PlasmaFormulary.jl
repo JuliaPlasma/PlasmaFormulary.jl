@@ -7,7 +7,7 @@ using Unitful: k, ħ
 using Unitful: me, mp, u
 using Unitful: Velocity, Mass, Force, BField, EField, Density, Charge, Length
 using UnitfulEquivalences
-using DimensionfulAngles: radᵃ as rad
+using DimensionfulAngles: Periodic, radᵃ as rad
 using PermuteArgs
 using ChargedParticles
 using ChargedParticles: ParticleLike
@@ -24,22 +24,11 @@ const Forces = AbstractVector{<:Force}
 const PressureGradients = AbstractVector{<:PressureGradient}
 const qe = Unitful.q
 
-# Workaround for UnitfulEquivalences.uconvert not supporting conversions of
-# quantites with the same dimensions. See
-# https://github.com/sostock/UnitfulEquivalences.jl/issues/19
-function custom_uconvert(dest_unit, x, equivalence)
-    if dimension(x) == dimension(dest_unit)
-        # plain Unitful ustrip
-        Unitful.uconvert(dest_unit, x)
-    else
-        UnitfulEquivalences.uconvert(dest_unit, x, equivalence)
-    end
-end
-
 energy(eot) = custom_uconvert(u"J", eot, Thermal())
 temperature(eot) = custom_uconvert(u"K", eot, Thermal())
 
-include("constants.jl")
+include("utils.jl")
+include("constants.jl") # to be removed
 include("dimensionless.jl")
 export plasma_beta
 
