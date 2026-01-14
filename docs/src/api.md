@@ -10,6 +10,8 @@ plasma_beta
 ```@docs
 plasma_frequency
 gyrofrequency
+lower_hybrid_frequency
+upper_hybrid_frequency
 ```
 
 ## Lengths

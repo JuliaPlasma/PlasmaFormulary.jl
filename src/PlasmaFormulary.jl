@@ -54,7 +54,7 @@ include("current_density.jl")
 export Alfven_current_density
 
 include("frequencies.jl")
-export gyrofrequency, plasma_frequency
+export gyrofrequency, plasma_frequency, lower_hybrid_frequency, upper_hybrid_frequency
 
 include("misc.jl")
 export thermal_pressure, magnetic_pressure
