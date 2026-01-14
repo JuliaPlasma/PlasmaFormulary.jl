@@ -75,3 +75,81 @@ end
 end
 
 plasma_frequency(n::NumberDensity; to_hz = false) = plasma_frequency(n, Unitful.q, me; to_hz)
+
+"""
+    lower_hybrid_frequency(B::BField, n_i::NumberDensity, ion::ParticleLike; kw...)
+
+Calculate the lower hybrid frequency.
+
+```math
+\\frac{1}{ω_{lh}^2} = \\frac{1}{ω_{ci}^2 + ω_{pi}^2} + \\frac{1}{ω_{ci} ω_{ce}}
+```
+
+where ω_ci is the ion gyrofrequency, ω_ce is the electron gyrofrequency,
+and ω_pi is the ion plasma frequency.
+
+Set `to_hz = true` to convert output from angular frequency to Hz.
+
+# Examples
+```jldoctest; filter = r"(\\^-1|⁻¹)"
+julia> lower_hybrid_frequency(0.2u"T", 5e19u"m^-3", "D+")
+5.783727350182709e8 rad s⁻¹
+```
+
+# References
+- [Wikipedia](https://en.wikipedia.org/wiki/Lower_hybrid_oscillation)
+- [PlasmaPy Documentation](https://docs.plasmapy.org/en/latest/api/plasmapy.formulary.frequencies.lower_hybrid_frequency.html)
+"""
+function lower_hybrid_frequency end
+
+@permute_args function lower_hybrid_frequency(
+    B::BField,
+    n_i::NumberDensity,
+    ion::ParticleLike;
+    to_hz = false,
+    kw...,
+)
+    p = particle(ion; kw...)
+    ω_ci = gyrofrequency(B, mass(p), charge(p))
+    ω_ce = gyrofrequency(B, me, Unitful.q)
+    ω_pi = plasma_frequency(n_i, charge(p), mass(p))
+
+    ω_lh = sqrt(inv(inv(ω_ci^2 + ω_pi^2) + inv(ω_ci * ω_ce)))
+    return _to_Hz(ω_lh, to_hz)
+end
+
+"""
+    upper_hybrid_frequency(B::BField, n_e::NumberDensity; to_hz = false)
+
+Calculate the upper hybrid frequency.
+
+```math
+ω_{uh}^2 = ω_{ce}^2 + ω_{pe}^2
+```
+
+where ω_ce is the electron gyrofrequency and ω_pe is the electron plasma frequency.
+
+Set `to_hz = true` to convert output from angular frequency to Hz.
+
+# Examples
+```jldoctest; filter = r"(\\^-1|⁻¹)"
+julia> upper_hybrid_frequency(0.2u"T", 5e19u"m^-3")
+4.004594195988481e11 rad s⁻¹
+
+julia> upper_hybrid_frequency(0.2u"T", 5e19u"m^-3"; to_hz = true)
+6.37350961368681e10 Hz
+```
+
+# References
+- [Wikipedia](https://en.wikipedia.org/wiki/Upper_hybrid_oscillation)
+- [PlasmaPy Documentation](https://docs.plasmapy.org/en/latest/api/plasmapy.formulary.frequencies.upper_hybrid_frequency.html)
+"""
+function upper_hybrid_frequency end
+
+@permute_args function upper_hybrid_frequency(B::BField, n_e::NumberDensity; to_hz = false)
+    ω_ce = gyrofrequency(B, me, Unitful.q)
+    ω_pe = plasma_frequency(n_e)
+
+    ω_uh = sqrt(ω_ce^2 + ω_pe^2)
+    return _to_Hz(ω_uh, to_hz)
+end
