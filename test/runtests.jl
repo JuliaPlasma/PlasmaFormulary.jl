@@ -30,6 +30,11 @@ end
     Aqua.test_all(PlasmaFormulary)
 end
 
+@testitem "JET" begin
+    using JET
+    JET.report_package(PlasmaFormulary; toplevel_logger = nothing)
+end
+
 @testitem "Misc" begin
     using Unitful
     using LinearAlgebra
