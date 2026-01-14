@@ -35,6 +35,7 @@ force_drift
 Alfven_speed
 ion_sound_speed
 thermal_speed
+thermal_temperature
 ```
 
 ## Current density
