@@ -11,7 +11,7 @@ using DimensionfulAngles: Periodic, radᵃ as rad
 using PermuteArgs
 using ChargedParticles
 using ChargedParticles: ParticleLike
-using LinearAlgebra: norm, norm2, ×, ⋅
+using LinearAlgebra: ×, ⋅, norm_sqr
 
 @derived_dimension NumberDensity 𝐋^-3
 @derived_dimension CurrentDensity 𝐈 / 𝐋^2

@@ -1,5 +1,5 @@
+@time using PlasmaFormulary
 using Chairmarks
-using PlasmaFormulary
 using Random
 using Unitful
 

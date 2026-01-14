@@ -17,7 +17,10 @@ function Alfven_current_density end
 
 @permute_args Alfven_current_density(Va::Velocity, n::NumberDensity) =
     q * n * Va |> upreferred
-@permute_args Alfven_current_density(𝐁::BFieldOrBFields, dᵢ::Length) =
-    norm(𝐁) / (μ0 * dᵢ) |> upreferred
+@permute_args Alfven_current_density(𝐁::BFields, dᵢ::Length) =
+    Alfven_current_density(_norm(𝐁), dᵢ)
+@permute_args Alfven_current_density(B::BField, dᵢ::Length) =
+    abs(B) / (μ0 * dᵢ) |> upreferred
+
 @permute_args Alfven_current_density(𝐁::BFieldOrBFields, n::NumberDensity) =
     Alfven_current_density(Alfven_speed(𝐁, n), n)

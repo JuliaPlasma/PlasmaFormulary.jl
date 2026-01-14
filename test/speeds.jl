@@ -17,6 +17,8 @@
     @test Alfven_velocity(B, rho) ==
           Alfven_velocity(rho, B) ≈
           [-43185.625u"m/s", 0.0u"m/s", 0.0u"m/s"]
+
+    @test_throws AssertionError Alfven_speed([-0.014u"T", 0.0u"T"], rho)
 end
 
 @testitem "Ion sound speed" begin

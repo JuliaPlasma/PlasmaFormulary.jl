@@ -8,8 +8,11 @@ Note that this is different from the Alfven velocity, see also [`Alfven_velocity
 References: [PlasmaPy API Documentation](https://docs.plasmapy.org/en/stable/api/plasmapy.formulary.speeds.Alfven_speed.html)
 """
 function Alfven_speed end
-@permute_args Alfven_speed(𝐁::BFieldOrBFields, ρ::Density) =
-    norm(𝐁) / sqrt(μ0 * ρ) |> upreferred
+@permute_args Alfven_speed(B::BField, ρ::Density) =
+    abs(B) / sqrt(μ0 * ρ) |> upreferred
+
+@permute_args Alfven_speed(𝐁::BFields, ρ::Density) =
+    Alfven_speed(_norm(𝐁), ρ)
 
 # Notes: `mp * mass_number` is not rigorously the ion mass
 @permute_args Alfven_speed(𝐁::BFieldOrBFields, n::NumberDensity, mass_number::Real) =
@@ -24,8 +27,9 @@ function Alfven_speed end
 Calculate the Alfven velocity for magnetic field vector. See also [`Alfven_speed`](@ref).
 """
 function Alfven_velocity end
-@permute_args Alfven_velocity(B::BFieldOrBFields, ρ::Density) =
-    @. B / sqrt(μ0 * ρ) |> upreferred
+@permute_args Alfven_velocity(B::BField, ρ::Density) = upreferred(B / sqrt(μ0 * ρ))
+@permute_args Alfven_velocity(𝐁::AbstractVector, ρ::Density) =
+    Alfven_velocity.(𝐁, ρ)
 @permute_args Alfven_velocity(B::BFieldOrBFields, n::NumberDensity, mass_number::Real) =
     Alfven_velocity(B, n * mass_number * mp)
 @permute_args Alfven_velocity(B::BFieldOrBFields, n::NumberDensity; mass_number::Real = 1) =
@@ -53,7 +57,7 @@ If both `n_e` and `k` are given, includes dispersive correction.
 - `n_e`: Electron number density (optional)
 - `k`: Wavenumber (optional)
 """
-function ion_sound_speed(T_e, T_i, m_i, Z; γ_e = 1, γ_i = 3, n_e = nothing, k = nothing)
+function ion_sound_speed(T_e, T_i, m_i, Z::Real; γ_e = 1., γ_i = 3., n_e = nothing, k = nothing)
     # Non-dispersive limit by default
     T_e = temperature(T_e)
     T_i = temperature(T_i)
@@ -125,7 +129,7 @@ end
 
 function thermal_speed(
     T::EnergyOrTemp,
-    p::ParticleLike,
+    p,
     method::ThermalVelocityMethod = MostProbable(),
     ndim = 3;
     kw...,
@@ -151,7 +155,7 @@ end
 
 function thermal_temperature(
     V::Unitful.Velocity,
-    p::ParticleLike,
+    p,
     method::ThermalVelocityMethod = MostProbable(),
     ndim = 3;
     kw...,
