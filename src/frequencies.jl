@@ -13,7 +13,7 @@ References:
 julia> gyrofrequency(0.01u"T", :p)  # proton gyrofrequency
 957883.3292211705 rad s⁻¹
 
-julia> uconvert(u"Hz", gyrofrequency(0.1u"T", :e), Periodic())  # electron gyrofrequency as frequency
+julia> gyrofrequency(0.1u"T", :e; to_hz = true)  # electron gyrofrequency as frequency
 2.799248987233304e9 Hz
 
 julia> gyrofrequency(250u"Gauss", "Fe"; z=13)  # Fe2+ ion gyrofrequency
@@ -22,13 +22,14 @@ julia> gyrofrequency(250u"Gauss", "Fe"; z=13)  # Fe2+ ion gyrofrequency
 """
 function gyrofrequency end
 
-@permute_args function gyrofrequency(B::BField, mass::Mass, q::Charge)
-    upreferred(rad * abs(q * B / mass))
+@permute_args function gyrofrequency(B::BField, mass::Mass, q::Charge; to_hz = false)
+    ω = upreferred(rad * abs(q * B / mass))
+    return _to_Hz(ω, to_hz)
 end
 
-@permute_args function gyrofrequency(B::BField, p::ParticleLike; kw...)
+@permute_args function gyrofrequency(B::BField, p::ParticleLike; to_hz = false, kw...)
     p = particle(p; kw...)
-    return gyrofrequency(B, mass(p), charge(p))
+    return gyrofrequency(B, mass(p), charge(p); to_hz)
 end
 
 """
@@ -59,13 +60,14 @@ julia> plasma_frequency(1e19u"m^-3", :p)  # proton plasma frequency
 """
 function plasma_frequency end
 
-@permute_args function plasma_frequency(n::NumberDensity, q::Charge, mass::Mass)
-    rad * abs(q) * sqrt(n / mass / ε0) |> upreferred
+@permute_args function plasma_frequency(n::NumberDensity, q::Charge, mass::Mass; to_hz = false)
+    ω = rad * abs(q) * sqrt(n / mass / ε0) |> upreferred
+    return _to_Hz(ω, to_hz)
 end
 
-@permute_args function plasma_frequency(n::NumberDensity, p::ParticleLike; kw...)
+@permute_args function plasma_frequency(n::NumberDensity, p::ParticleLike; to_hz = false, kw...)
     p = particle(p; kw...)
-    return plasma_frequency(n, charge(p), mass(p))
+    return plasma_frequency(n, charge(p), mass(p); to_hz)
 end
 
-plasma_frequency(n::NumberDensity) = plasma_frequency(n, Unitful.q, me)
+plasma_frequency(n::NumberDensity; to_hz = false) = plasma_frequency(n, Unitful.q, me; to_hz)

@@ -11,6 +11,19 @@ end
 
 @run_package_tests
 
+@testitem "Doctests" begin
+    using Documenter
+
+    Documenter.DocMeta.setdocmeta!(
+        PlasmaFormulary,
+        :DocTestSetup,
+        :(using PlasmaFormulary; using Unitful);
+        recursive = true,
+    )
+
+    doctest(PlasmaFormulary)
+end
+
 @testitem "Aqua" begin
     using Aqua
     Aqua.test_all(PlasmaFormulary)
